@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { supabase } from '@/lib/supabase'
 import PoliticianTabs from '@/components/politician-tabs'
 
@@ -85,9 +86,19 @@ export default async function PoliticianPage({
         {/* Profile header */}
         <div className="rounded-xl border bg-white p-6">
           <div className="flex items-start gap-4">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gray-100 text-2xl font-bold text-gray-400">
-              {politician.name_ko[0]}
-            </div>
+            {politician.photo_url ? (
+              <Image
+                src={politician.photo_url}
+                alt={politician.name_ko}
+                width={72}
+                height={72}
+                className="shrink-0 rounded-full object-cover object-top"
+              />
+            ) : (
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gray-100 text-2xl font-bold text-gray-400">
+                {politician.name_ko[0]}
+              </div>
+            )}
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-2xl font-bold">{politician.name_ko}</h1>

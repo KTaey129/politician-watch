@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Politician, Stats } from '@/lib/supabase'
 
 export type PoliticianWithStats = Politician & { stats: Stats | Stats[] | null }
@@ -134,16 +135,32 @@ export default function PoliticianGrid({ politicians }: { politicians: Politicia
                 href={`/${p.id}`}
                 className="group flex flex-col gap-3 rounded-xl border bg-white p-5 shadow-sm transition hover:shadow-md"
               >
-                <div className="flex items-start justify-between gap-2">
-                  <span className="text-lg font-semibold transition-colors group-hover:text-blue-600">
-                    {p.name_ko}
-                  </span>
-                  <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${partyBadge(p.party)}`}>
-                    {p.party}
-                  </span>
+                <div className="flex items-center gap-3">
+                  {p.photo_url ? (
+                    <Image
+                      src={p.photo_url}
+                      alt={p.name_ko}
+                      width={48}
+                      height={48}
+                      className="shrink-0 rounded-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-lg font-bold text-gray-400">
+                      {p.name_ko[0]}
+                    </div>
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="text-base font-semibold transition-colors group-hover:text-blue-600">
+                        {p.name_ko}
+                      </span>
+                      <span className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${partyBadge(p.party)}`}>
+                        {p.party}
+                      </span>
+                    </div>
+                    <div className="mt-0.5 text-sm text-gray-500">{p.district}</div>
+                  </div>
                 </div>
-
-                <div className="text-sm text-gray-500">{p.district}</div>
 
                 {stat && (
                   <div className="grid grid-cols-3 gap-2 border-t pt-3 text-center">
