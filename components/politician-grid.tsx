@@ -26,22 +26,15 @@ const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: 'bills_asc', label: '발의안 적은순' },
 ]
 
-// Major parties shown as fixed filter chips; others collapsed under "기타"
-const MAJOR_PARTIES = ['더불어민주당', '국민의힘', '조국혁신당', '개혁신당', '진보당']
+// All parties currently represented in the 22nd Assembly
+const FILTER_PARTIES = ['더불어민주당', '국민의힘', '조국혁신당', '개혁신당', '진보당', '새로운미래', '무소속']
 
 export default function PoliticianGrid({ politicians }: { politicians: PoliticianWithStats[] }) {
   const [search, setSearch] = useState('')
   const [party, setParty] = useState<string | null>(null)
   const [sort, setSort] = useState<SortKey>('name')
 
-  const parties = useMemo(() => {
-    const seen = new Set<string>()
-    for (const p of politicians) if (p.party) seen.add(p.party)
-    // Major parties first (if present), then others
-    const major = MAJOR_PARTIES.filter(p => seen.has(p))
-    const others = [...seen].filter(p => !MAJOR_PARTIES.includes(p)).sort()
-    return [...major, ...others]
-  }, [politicians])
+  const parties = FILTER_PARTIES
 
   const filtered = useMemo(() => {
     let list = politicians
