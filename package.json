@@ -10,7 +10,8 @@
     "ingest:politicians": "tsx scripts/ingest-politicians.ts",
     "ingest:votes": "tsx scripts/ingest-votes.ts",
     "ingest:stats": "tsx scripts/ingest-stats.ts",
-    "ingest:all": "npm run ingest:politicians && npm run ingest:votes && npm run ingest:stats"
+    "ingest:all": "npm run ingest:politicians && npm run ingest:votes && npm run ingest:stats",
+    "seed:ancestors": "tsx scripts/seed-ancestor-records.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",

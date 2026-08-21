@@ -55,6 +55,14 @@ async function getCriminalRecords(politicianId: string) {
   return data ?? []
 }
 
+async function getAncestorRecords(politicianId: string) {
+  const { data } = await supabase
+    .from('pro_japanese_ancestor')
+    .select('*')
+    .eq('politician_id', politicianId)
+  return data ?? []
+}
+
 export default async function PoliticianPage({
   params,
 }: {
@@ -62,12 +70,13 @@ export default async function PoliticianPage({
 }) {
   const { id } = await params
 
-  const [politician, stats, votes, promises, criminalRecords] = await Promise.all([
+  const [politician, stats, votes, promises, criminalRecords, ancestorRecords] = await Promise.all([
     getPolitician(id),
     getStats(id),
     getVotes(id),
     getPromises(id),
     getCriminalRecords(id),
+    getAncestorRecords(id),
   ])
 
   if (!politician) notFound()
@@ -143,6 +152,7 @@ export default async function PoliticianPage({
             votes={votes}
             promises={promises}
             criminalRecords={criminalRecords}
+            ancestorRecords={ancestorRecords}
           />
         </div>
       </div>

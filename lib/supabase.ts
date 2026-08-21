@@ -45,6 +45,17 @@ export type CriminalRecord = {
   source_url: string | null
 }
 
+export type ProJapaneseAncestorRecord = {
+  id: string
+  politician_id: string
+  ancestor_name: string
+  relation: string
+  activity_summary: string
+  designated_by: string
+  source: string | null
+  source_url: string | null
+}
+
 export type Stats = {
   id: string
   politician_id: string

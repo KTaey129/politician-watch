@@ -78,6 +78,7 @@ async function main() {
     await supabaseAdmin.from('vote_record').delete().in('politician_id', staleIds)
     await supabaseAdmin.from('promise').delete().in('politician_id', staleIds)
     await supabaseAdmin.from('criminal_record').delete().in('politician_id', staleIds)
+    await supabaseAdmin.from('pro_japanese_ancestor').delete().in('politician_id', staleIds)
     await supabaseAdmin.from('politician').delete().in('id', staleIds)
     console.log(`Removed ${staleIds.length} stale former-member rows.`)
   }
